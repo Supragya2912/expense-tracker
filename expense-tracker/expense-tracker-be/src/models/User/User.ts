@@ -53,6 +53,15 @@ export const getUserByEmail = async (email: string) => {
     }
 };
 
+export const getUserById = async (id: string) => {
+    try {
+        const user = await User.findById(id);
+        return user;
+    } catch (error) {
+        throw new Error('Error fetching user by id');
+    }
+}
+
 export const getAllUsers = async () => {
     try {
         const users = await User.find({});
