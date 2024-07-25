@@ -1,8 +1,10 @@
-import {Schema, model} from 'mongoose';
-import { IUser } from './User';
-import e from 'express';
+// models/User/User.ts
+import { Schema, model, Document } from 'mongoose';
+import { IUser } from './User.d';
 
-const UserSchema = new Schema({
+interface IUserDocument extends IUser, Document {}
+
+const UserSchema = new Schema<IUserDocument>({
     email: {
         type: String,
         required: true,
@@ -30,7 +32,41 @@ const UserSchema = new Schema({
     },
 });
 
+const User = model<IUserDocument>('User', UserSchema);
 
-const User = model<IUser>('User', UserSchema);
+export const createUser = async (user: IUser) => {
+    try {
+        const newUser = await User.create(user);
+        newUser.save();
+        return newUser;
+    } catch (error) {
+        throw new Error('Error creating user');
+    }
+};
 
-export default User;
+export const getUserByEmail = async (email: string) => {
+    try {
+        const user = await User.findOne({ email });
+        return user;
+    } catch (error) {
+        throw new Error('Error fetching user by email');
+    }
+};
+
+export const getAllUsers = async () => {
+    try {
+        const users = await User.find({});
+        return users;
+    } catch (error) {
+        throw new Error('Error fetching all users');
+    }
+};
+
+const userActions = {
+    User,
+    createUser,
+    getUserByEmail,
+    getAllUsers,
+};
+
+export default userActions;
