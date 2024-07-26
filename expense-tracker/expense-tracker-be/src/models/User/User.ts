@@ -1,4 +1,3 @@
-// models/User/User.ts
 import { Schema, model, Document } from 'mongoose';
 import { IUser } from './User.d';
 
