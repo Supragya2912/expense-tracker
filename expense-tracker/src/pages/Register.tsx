@@ -1,8 +1,18 @@
 import React from "react";
-import { Container, Box, TextField, Button, Typography } from "@mui/material";
+import { Container, Box, TextField, Button, Typography, Snackbar, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
+import useRegister from "../hooks/auth/useRegister"; // Import the useRegister hook
 
 const Register = () => {
+  const { formFields, state, setState, handleChange, handleSubmit } = useRegister(); // Use the hook
+
+  const handleCloseSnackbar = () => {
+    setState((prevState) => ({
+      ...prevState,
+      snackbarOpen: false,
+    }));
+  };
+
   return (
     <Container maxWidth="sm">
       <Box
@@ -16,21 +26,23 @@ const Register = () => {
           borderRadius: 10,
         }}
       >
-         <Typography  variant="h4" sx={{ marginBottom: 2 }}>
+        <Typography variant="h4" sx={{ marginBottom: 2 }}>
           Expense Tracker
         </Typography>
         <Typography variant="h6" sx={{ marginBottom: 2 }}>
           Sign Up
         </Typography>
-        <Box component="form" noValidate sx={{ mt: 1 }}>
+        <Box component="form" noValidate sx={{ mt: 1 }} onSubmit={handleSubmit}>
           <TextField
             margin="normal"
             required
             fullWidth
-            id="name"
-            label="Name"
-            name="name"
+            id="first-name"
+            label="First Name"
+            name="firstName"
             autoComplete="name"
+            value={formFields.firstName}
+            onChange={handleChange}
             autoFocus
             sx={{
               backgroundColor: "#1C1C1C",
@@ -64,12 +76,13 @@ const Register = () => {
             margin="normal"
             required
             fullWidth
-            name="last-name"
+            name="lastName"
             label="Last Name"
             type="text"
             id="last-name"
             autoComplete="last-name"
-            autoFocus
+            value={formFields.lastName}
+            onChange={handleChange}
             sx={{
               backgroundColor: "#1C1C1C",
               borderRadius: 1,
@@ -106,7 +119,8 @@ const Register = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
+            value={formFields.email}
+            onChange={handleChange}
             sx={{
               backgroundColor: "#1C1C1C",
               borderRadius: 1,
@@ -143,8 +157,9 @@ const Register = () => {
             label="Password"
             type="password"
             id="password"
+            value={formFields.password}
+            onChange={handleChange}
             autoComplete="new-password"
-            autoFocus
             sx={{
               backgroundColor: "#1C1C1C",
               borderRadius: 1,
@@ -173,7 +188,6 @@ const Register = () => {
               style: { color: "white" },
             }}
           />
-          
           <Button
             type="submit"
             fullWidth
@@ -191,12 +205,26 @@ const Register = () => {
           >
             Sign Up
           </Button>
+          {state.error && (
+            <Typography color="error" sx={{ mt: 2 }}>
+              {state.error}
+            </Typography>
+          )}
+          <Snackbar
+            open={state.snackbarOpen}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+          >
+            <Alert onClose={handleCloseSnackbar}>
+              {state.snackbarMessage}
+            </Alert>
+          </Snackbar>
           <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-  <Typography sx={{ color: "white" }}>Already have an account?&nbsp;</Typography>
-  <Link to="/login" style={{ color: "white" }}>
-    Login
-  </Link>
-</Box>
+            <Typography sx={{ color: "white" }}>Already have an account?&nbsp;</Typography>
+            <Link to="/login" style={{ color: "white" }}>
+              Login
+            </Link>
+          </Box>
         </Box>
       </Box>
     </Container>

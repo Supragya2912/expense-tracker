@@ -69,7 +69,7 @@ export const addUser = async (req: Request, res: Response) => {
     return res.status(201).json({
       message: "User Created Successfully",
       data: {
-        userWithoutPassword,
+        user: userWithoutPassword,
       },
     });
   } catch (error) {
