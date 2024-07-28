@@ -24,5 +24,9 @@ export interface ErrorResponse {
     message: string;
 }
 
-
-
+export interface LoginSuccessResponse {
+    message: string;
+    data: {
+        accessToken: string;
+    };
+}

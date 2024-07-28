@@ -1,11 +1,9 @@
-import React from 'react';
 import { AppBar, Toolbar, Typography, Avatar, Drawer, List, ListItem, ListItemIcon, ListItemText, Box } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import FlightIcon from '@mui/icons-material/Flight';
-import ApprovalIcon from '@mui/icons-material/Approval';
+import { Link } from 'react-router-dom';
+import { MdDashboard } from "react-icons/md";
+import { FaReceipt } from "react-icons/fa6";
+import { TbTransactionRupee } from "react-icons/tb";
 import SettingsIcon from '@mui/icons-material/Settings';
-import SupportIcon from '@mui/icons-material/Support';
 
 const NavigationBar = () => {
   const drawerWidth = 300; // Adjusted drawer width
@@ -14,7 +12,6 @@ const NavigationBar = () => {
     <Box sx={{ display: 'flex' }}>
       <AppBar position="fixed" sx={{ zIndex: 1201, backgroundColor: '#1C1C1C' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          {/* Add content for the top bar here if needed */}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -26,7 +23,7 @@ const NavigationBar = () => {
             width: drawerWidth,
             boxSizing: 'border-box',
             backgroundColor: '#1C1C1C',
-            color: '#FFF', 
+            color: '#FFF',
           },
         }}
       >
@@ -43,35 +40,31 @@ const NavigationBar = () => {
         </Box>
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            {['Home', 'Expenses', 'Trips', 'Approvals', 'Settings', 'Support'].map((text, index) => {
-              const icons = [
-                <HomeIcon sx={{ color: 'white' }} />,
-                <ReceiptIcon sx={{ color: 'white' }} />,
-                <FlightIcon sx={{ color: 'white' }} />,
-                <ApprovalIcon sx={{ color: 'white' }} />,
-                <SettingsIcon sx={{ color: 'white' }} />,
-                <SupportIcon sx={{ color: 'white' }} />,
-              ];
-              return (
-                <ListItem button key={text}>
-                  <ListItemIcon>{icons[index]}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              );
-            })}
+            {[
+              { text: 'Dashboard', icon: <MdDashboard style={{ color: 'white' }} />, link: '/' },
+              { text: 'Expenses', icon: <FaReceipt style={{ color: 'white' }} />, link: '/expenses' },
+              { text: 'Transactions', icon: <TbTransactionRupee style={{ color: 'white' }} />, link: '/transactions' },
+              { text: 'Settings', icon: <SettingsIcon style={{ color: 'white' }} />, link: '/settings' }
+            ].map((item) => (
+              <ListItem 
+                button 
+                key={item.text} 
+                component={Link} 
+                to={item.link} 
+                sx={{ textAlign: 'center' }}
+              >
+                <ListItemIcon sx={{ justifyContent: 'center', color: "white" }}>
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText 
+                  primary={item.text} 
+                  sx={{ textAlign: 'center', color: 'white' }} 
+                />
+              </ListItem>
+            ))}
           </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, marginLeft: drawerWidth }}>
-        <Toolbar />
-        {/* Main content goes here */}
-        <Box sx={{ padding: 2, backgroundColor: '#282828', borderRadius: 1 }}>
-          <Typography variant="h4" sx={{ color: 'white', marginBottom: 2 }}>
-            Dashboard
-          </Typography>
-          {/* Your content here */}
-        </Box>
-      </Box>
     </Box>
   );
 };

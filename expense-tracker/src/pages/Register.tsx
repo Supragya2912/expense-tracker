@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Box, TextField, Button, Typography, Snackbar, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
-import useRegister from "../hooks/auth/useRegister"; // Import the useRegister hook
+import useRegister from "../hooks/auth/useRegister"; 
 
 const Register = () => {
-  const { formFields, state, setState, handleChange, handleSubmit } = useRegister(); // Use the hook
+  const { formFields, state, setState, handleChange, handleSubmit } = useRegister(); 
 
   const handleCloseSnackbar = () => {
     setState((prevState) => ({

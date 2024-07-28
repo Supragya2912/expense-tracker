@@ -1,7 +1,19 @@
-import { Container, Box, TextField, Button, Typography } from "@mui/material";
+import { Container, Box, TextField, Button, Typography, Snackbar, Alert } from "@mui/material";
 import { Link } from "react-router-dom";
+import useLogin from "../hooks/auth/useLogin";
 
 const Login = () => {
+
+  const { formFields, state, setState, handleChange, handleSubmit } = useLogin();
+
+  const handleCloseSnackbar = () => {
+    setState((prevState) => ({
+      ...prevState,
+      snackbarOpen: false,
+    }));
+  };
+
+
   return (
     <Container maxWidth="sm">
       <Box
@@ -31,6 +43,8 @@ const Login = () => {
             name="email"
             autoComplete="email"
             autoFocus
+            value={formFields.email}
+            onChange={handleChange}
             sx={{
               backgroundColor: "#1C1C1C",
               borderRadius: 1,
@@ -67,6 +81,8 @@ const Login = () => {
             label="Password"
             type="password"
             id="password"
+            value={formFields.password}
+            onChange={handleChange}
             autoComplete="current-password"
             sx={{
               backgroundColor: "#1C1C1C",
@@ -100,6 +116,7 @@ const Login = () => {
             type="submit"
             fullWidth
             variant="contained"
+            onClick={handleSubmit}
             sx={{
               mt: 3,
               mb: 2,
@@ -137,6 +154,15 @@ const Login = () => {
           </Box>
         </Box>
       </Box>
+      <Snackbar
+            open={state.snackbarOpen}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+          >
+            <Alert onClose={handleCloseSnackbar}>
+              {state.snackbarMessage}
+            </Alert>
+          </Snackbar>
     </Container>
   );
 };
