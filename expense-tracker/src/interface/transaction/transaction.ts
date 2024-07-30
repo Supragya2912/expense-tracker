@@ -1,6 +1,4 @@
-import { Document } from "mongoose";
-
-export interface ITransaction {
+export interface Transaction {
     userId: string;
     type: 'income' | 'expense';
     title: string;
@@ -11,4 +9,6 @@ export interface ITransaction {
     updatedAt?: Date;
   }
 
-export interface ITransactionDocument extends ITransaction, Document {}
+  export interface TransactionsTableProps {
+    transactions: Transaction[];
+  }

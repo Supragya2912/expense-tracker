@@ -42,7 +42,7 @@ const NavigationBar = () => {
           <List>
             {[
               { text: 'Dashboard', icon: <MdDashboard style={{ color: 'white' }} />, link: '/' },
-              { text: 'Expenses', icon: <FaReceipt style={{ color: 'white' }} />, link: '/expenses' },
+              { text: 'Savings', icon: <FaReceipt style={{ color: 'white' }} />, link: '/savings' },
               { text: 'Transactions', icon: <TbTransactionRupee style={{ color: 'white' }} />, link: '/transactions' },
               { text: 'Settings', icon: <SettingsIcon style={{ color: 'white' }} />, link: '/settings' }
             ].map((item) => (
