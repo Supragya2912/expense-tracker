@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Transactions from './pages/Transactions';
+import Savings from './pages/Savings';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/" element={<Dashboard />} />
 
       <Route path="/transactions" element={<Transactions/>} />
+      <Route path="/savings" element={<Savings/>}/>
 
      </Routes>
     </div>

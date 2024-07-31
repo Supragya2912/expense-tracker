@@ -14,7 +14,7 @@ const QuickAccess = () => {
   const items = [
     { label: "Savings", icon: <MdOutlineAttachMoney />, color: "#b83f87" , link: '/savings'  },
     { label: "Add Transaction", icon: <MdReceipt />, color: "#2e2a85", link: '/transactions' },
-    { label: "Set Goal", icon: <MdOutlineReport />, color: "#00766c", link: '/goals' },
+    { label: "Set Goal", icon: <MdOutlineReport />, color: "#00766c", link: '/savings' },
     // { label: "Create trip", icon: <MdOutlineTripOrigin />, color: "#8a2326" , link: '/trips' },
   ];
 
