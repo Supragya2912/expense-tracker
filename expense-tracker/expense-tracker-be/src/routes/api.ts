@@ -1,7 +1,8 @@
 import express from 'express';
 import {addUser, getMyProfile, loginUser} from '../controllers/userContoller';
 import { addBudget, updateBudget, getBudgetByUserId } from '../models/Budget/Budget';
-import { addSaving, getSavingById, getSavingsByUserId , updateSaving} from '../models/Savings/Savings';
+import { addGoal, addAmount, getSaving , getTotalSavingHandler} from '../controllers/savingController';
+import { getSavingById , updateSaving} from '../models/Savings/Savings';
 import { addTransaction, getTransactionById, getTransactionsByUserId } from '../models/Transactions/Transaction';
 import auth from '../middleware/auth';
 
@@ -19,8 +20,10 @@ router.post('/update-budget', auth, async (req, res) => {
 });
 router.post('/get-budget',auth, getBudgetByUserId);
 
-router.post('/add-saving',auth, addSaving);
-router.post('/get-saving',auth, getSavingsByUserId);
+router.post('/add-goal',auth, addGoal);
+router.post('/add-amount',auth, addAmount);
+router.post('/get-saving',auth, getSaving);
+router.post('/get-total-saving', auth, getTotalSavingHandler);
 router.post('/get-saving-by-id',auth, getSavingById);
 router.post('/update-saving',auth, async (req, res) => {
     const { id, saving } = req.body;
