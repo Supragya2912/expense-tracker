@@ -1,10 +1,14 @@
-import { Typography, Button, IconButton } from "@mui/material";
+import React from "react";
+import { Typography, Button, IconButton, LinearProgress, Box } from "@mui/material";
 import Layout from "../components/Layout";
 import { FaFilter } from "react-icons/fa";
 import SavingGraph from "../components/SavingGraph";
 import SavingsCard from "../components/SavingsCard";
 
-const Transactions = () => {
+const Transactions: React.FC = () => {
+  const currentSavings = 300;
+  const monthlyGoal = 500;
+
   return (
     <Layout>
       <div
@@ -49,9 +53,34 @@ const Transactions = () => {
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 20 , padding: 20}}>
+        <div style={{ display: "flex", gap: 20, padding: 20 }}>
           <SavingsCard amount={300} description="Saved this month" />
           <SavingsCard amount={1200} description="Saved this year" />
+          <div style={{ border: "1px solid gray", borderRadius: 5, padding: 20, width: 750 }}>
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              Monthly Savings Goal
+            </Typography>
+            <Box display="flex" alignItems="center" mt={2} position="relative">
+              <Box width="100%" mr={1}>
+                <LinearProgress
+                  variant="determinate"
+                  color="success"
+                  value={(currentSavings / monthlyGoal) * 100}
+                  sx={{ height: 10, borderRadius: 5 }}
+                />
+              </Box>
+              <Box position="absolute" left={0} bottom="-25px">
+                <Typography variant="body2" sx={{ color: "white" }}>
+                  ${currentSavings}
+                </Typography>
+              </Box>
+              <Box position="absolute" right={0} bottom="-25px">
+                <Typography variant="body2" sx={{ color: "white" }}>
+                  ${monthlyGoal}
+                </Typography>
+              </Box>
+            </Box>
+          </div>
         </div>
 
         <div style={{ padding: 20 }}>

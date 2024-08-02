@@ -9,7 +9,7 @@ const SavingSchema = new Schema({
         ref: 'User',
         required: true
     },
-    name: {
+    title: {
         type: String,
         required: true
     },
@@ -21,7 +21,11 @@ const SavingSchema = new Schema({
         type: Number,
         required: true
     },
-    deadline: {
+    startDate: {
+        type: Date,
+        required: true
+    },
+    endDate: {
         type: Date,
         required: true
     }
