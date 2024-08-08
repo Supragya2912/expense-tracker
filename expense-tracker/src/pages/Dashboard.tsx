@@ -4,7 +4,12 @@ import ExpenseReport from "../components/ExpenseReport";
 import RecentTransaction from "../components/RecentTransaction";
 import QuickAccess from "../components/QuickAccess";
 
+import  useAuth  from "../hooks/auth/useAuth";
+
 const Dashboard = () => {
+
+  const { loading, profile,  } = useAuth();
+  console.log("prof",profile);
   return (
     <Layout>
       <div

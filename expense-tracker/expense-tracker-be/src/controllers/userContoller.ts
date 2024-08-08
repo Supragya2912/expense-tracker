@@ -12,6 +12,8 @@ interface RequestExtended extends Request {
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
+  console.log(email, password);
+
   if (!email || !password) {
     return res.status(400).json({ message: "All fields are required" });
   }
