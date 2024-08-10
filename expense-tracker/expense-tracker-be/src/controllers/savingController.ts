@@ -129,7 +129,7 @@ export const getTotalSavingHandler = async (req: Request, res: Response) => {
 
     const totalSavings = await getTotalSaving(filter);
 
-    return res.status(200).json(totalSavings);
+    return res.status(200).json({data:totalSavings});
   } catch (error) {
     return res.status(500).json({ message: "Error calculating total savings" });
   }

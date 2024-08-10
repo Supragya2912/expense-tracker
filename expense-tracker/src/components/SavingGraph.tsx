@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Typography,
   Select,
@@ -6,8 +6,10 @@ import {
   FormControl,
   Grid,
   InputLabel,
+  SelectChangeEvent, // Import this type
 } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
+import useListSaving from "../hooks/saving/useListSaving";
 
 const pData = [
   2400, 1398, 9800, 3908, 4800, 3800, 4300, 3490, 4300, 4300, 4300, 4300,
@@ -27,7 +29,20 @@ const xLabels = [
   "Dec",
 ];
 
-const SavingGraph = () => {
+const SavingGraph: React.FC = () => {
+  const { getFilteredSaving , filteredResponse} = useListSaving();
+  const [selectedFilter, setSelectedFilter] = useState<string>("");
+
+
+  const handleFilterChange = async (event: SelectChangeEvent<string>) => {
+    const filterValue = event.target.value;
+    setSelectedFilter(filterValue);
+     await getFilteredSaving(filterValue);
+  };
+
+  console.log("vallll",filteredResponse)
+
+
   return (
     <div style={{ border: "1px solid gray", borderRadius: 5, padding: 20 }}>
       <Grid container spacing={2} alignItems="center">
@@ -43,9 +58,10 @@ const SavingGraph = () => {
               Filter
             </InputLabel>
             <Select
-              defaultValue=""
+              value={selectedFilter}
               id="filter-select"
               label="Filter"
+              onChange={handleFilterChange}
               sx={{
                 backgroundColor: "#2C2C2C",
                 color: "white",
@@ -71,9 +87,9 @@ const SavingGraph = () => {
                 },
               }}
             >
-              <MenuItem value="week">Last Week</MenuItem>
-              <MenuItem value="month"> Last Month</MenuItem>
-              <MenuItem value="year"> Last Year</MenuItem>
+              <MenuItem value="last-week">Last Week</MenuItem>
+              <MenuItem value="week">Week</MenuItem>
+              <MenuItem value="year">Year</MenuItem>
             </Select>
           </FormControl>
         </Grid>

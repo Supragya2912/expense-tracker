@@ -11,8 +11,8 @@ const Transactions: React.FC = () => {
   const currentSavings = 300;
   const monthlyGoal = 500;
 
-  const saving = useListSaving();
-  console.log("saving", saving);
+  const {filteredResponse, saving} = useListSaving();
+  console.log(filteredResponse);
 
   return (
     <Layout>
