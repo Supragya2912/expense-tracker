@@ -1,5 +1,5 @@
 import { SERVER_URL } from '../../constants/index';
-import { RegisterUser, SuccessResponse, ErrorResponse, LoginSuccessResponse } from '../../interface/auth/auth';
+import { RegisterUser, SuccessResponse, ErrorResponse, LoginSuccessResponse, ProfileResponse } from '../../interface/auth/auth';
 
 
 export const registerUser = async (data: RegisterUser): Promise<SuccessResponse | ErrorResponse> => {
@@ -48,7 +48,7 @@ export const loginUser = async (data: { email: string; password: string }): Prom
     }
 }
 
-export const getProfile = async (token: string): Promise<SuccessResponse | ErrorResponse> => {
+export const getProfile = async (token: string): Promise<ProfileResponse | ErrorResponse> => {
     try {
         const response = await fetch(`${SERVER_URL}/api/get-profile`, {
             method: "POST",

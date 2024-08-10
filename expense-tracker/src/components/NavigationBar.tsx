@@ -4,9 +4,15 @@ import { MdDashboard } from "react-icons/md";
 import { FaReceipt } from "react-icons/fa6";
 import { TbTransactionRupee } from "react-icons/tb";
 import SettingsIcon from '@mui/icons-material/Settings';
+import  useAuth  from '../hooks/auth/useAuth';
+
+
+// interface 
 
 const NavigationBar = () => {
   const drawerWidth = 300; // Adjusted drawer width
+
+  const { profile } = useAuth();
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -35,7 +41,7 @@ const NavigationBar = () => {
             sx={{ margin: '20px auto', width: 100, height: 100 }}
           />
           <Typography variant="h6" sx={{ color: 'white' }}>
-            John Doe
+          {profile?.firstName} {profile?.lastName}
           </Typography>
         </Box>
         <Box sx={{ overflow: 'auto' }}>

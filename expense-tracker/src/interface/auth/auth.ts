@@ -13,6 +13,21 @@ export interface User {
     updatedAt: string;
 }
 
+export interface Profile {
+    _id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+}
+
+// Interface for the entire API response
+export interface ProfileResponse {
+    success: boolean;
+    data: Profile;
+}
 export interface SuccessResponse {
     message: string;
     data: {

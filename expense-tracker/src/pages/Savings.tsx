@@ -4,10 +4,15 @@ import Layout from "../components/Layout";
 import { FaFilter } from "react-icons/fa";
 import SavingGraph from "../components/SavingGraph";
 import SavingsCard from "../components/SavingsCard";
+import useListSaving from "../hooks/saving/useListSaving";
+import moment from "moment";
 
 const Transactions: React.FC = () => {
   const currentSavings = 300;
   const monthlyGoal = 500;
+
+  const saving = useListSaving();
+  console.log("saving", saving);
 
   return (
     <Layout>
@@ -54,11 +59,11 @@ const Transactions: React.FC = () => {
         </div>
 
         <div style={{ display: "flex", gap: 20, padding: 20 }}>
-          <SavingsCard amount={300} description="Saved this month" />
+          <SavingsCard amount={saving[0]?.currentAmount} description="Saved this month" />
           <SavingsCard amount={1200} description="Saved this year" />
           <div style={{ border: "1px solid gray", borderRadius: 5, padding: 20, width: 750 }}>
             <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-              Monthly Savings Goal
+              Monthly Savings Goal <span>({moment(saving[0]?.startDate).format('DD/MM/YYYY')} - {moment(saving[0]?.endDate).format('DD/MM/YYYY')})</span> 
             </Typography>
             <Box display="flex" alignItems="center" mt={2} position="relative">
               <Box width="100%" mr={1}>
@@ -71,12 +76,12 @@ const Transactions: React.FC = () => {
               </Box>
               <Box position="absolute" left={0} bottom="-25px">
                 <Typography variant="body2" sx={{ color: "white" }}>
-                  ${currentSavings}
+                  ${saving[0]?.currentAmount}
                 </Typography>
               </Box>
               <Box position="absolute" right={0} bottom="-25px">
                 <Typography variant="body2" sx={{ color: "white" }}>
-                  ${monthlyGoal}
+                  ${saving[0]?.targetAmount}
                 </Typography>
               </Box>
             </Box>

@@ -1,36 +1,32 @@
 import { useEffect, useState } from "react";
 import { getProfile } from "../../api/auth/api";
+import { Profile } from "../../interface/auth/auth";
 
 const useAuth = () => {
 
-    const [token, setToken] = useState("");
-    const [profile, setProfile] = useState({});
+    const [profile, setProfile] = useState<Profile | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState({});
 
     useEffect(() => {
         const getInitialData = async () => {
             const token = localStorage.getItem("token");
-            console.log("token",token);
 
             if (!token) {
-                localStorage.removeItem("token");
                 setLoading(false);
                 return;
             }
 
             try {
                 const response = await getProfile(token);
+                console.log("response", response);
                 if ("data" in response) {
-                    setToken(token);
                     setProfile(response.data);
                 } else {
                     setError(response.message);
-                    localStorage.removeItem("token");
                 }
             } catch (err) {
                 console.error("Failed to fetch profile:", err);
-                localStorage.removeItem("accessToken");
             } finally {
                 setLoading(false);
             }
@@ -38,8 +34,7 @@ const useAuth = () => {
 
         getInitialData();
     }, []);
-
-    return { token, profile, loading, error };
+    return { loading,  profile, error };
 };
 
 export default useAuth;

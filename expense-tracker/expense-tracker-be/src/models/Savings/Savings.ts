@@ -94,7 +94,7 @@ const monthNames = [
     "July", "August", "September", "October", "November", "December"
 ];
 
-export const getTotalSaving = async (filter: 'year' | 'week') => {
+export const getTotalSaving = async (filter: 'year' | 'week' | 'last-week') => {
     try {
         const matchStage: any = {};
         if (filter === 'year') {
@@ -109,6 +109,15 @@ export const getTotalSaving = async (filter: 'year' | 'week') => {
             matchStage['startDate'] = {
                 $gte: new Date(new Date().setDate(firstDayOfWeek)),
                 $lte: new Date(new Date().setDate(lastDayOfWeek))
+            };
+        }
+        else if (filter === 'last-week') {
+            const currentDate = new Date();
+            const firstDayOfLastWeek = currentDate.getDate() - currentDate.getDay() - 7;
+            const lastDayOfLastWeek = firstDayOfLastWeek + 6;
+            matchStage['startDate'] = {
+                $gte: new Date(new Date().setDate(firstDayOfLastWeek)),
+                $lte: new Date(new Date().setDate(lastDayOfLastWeek))
             };
         } else {
             throw new Error('Invalid filter');

@@ -101,6 +101,7 @@ export const addAmount = async (req: RequestExtended, res: Response) => {
       .json({ message: "Error adding amount to saving goal" });
   }
 };
+
 export const getSaving = async (req: RequestExtended, res: Response) => {
     try {
       const userId = req.user?._id as string;
@@ -118,11 +119,10 @@ export const getSaving = async (req: RequestExtended, res: Response) => {
       return res.status(500).json({ message: "Error fetching saving goals" });
     }
   };
-  
 
 export const getTotalSavingHandler = async (req: Request, res: Response) => {
   try {
-    const filter = req.body.filter as "year" | "week";
+    const filter = req.body.filter as "year" | "week" | "last-week";
     if (!filter) {
       return res.status(400).json({ message: "Filter is required" });
     }
